@@ -185,3 +185,16 @@ class TestMisReportWidgetTour(common.HttpCase):
             f"&domain={domain}"
         )
         self.start_tour(url, "mis_report_back_button_tour", login="admin")
+
+    def test_mis_report_annotation_tour(self):
+        user = self.env.ref("base.user_admin")
+        group = self.env.ref("mis_builder.group_edit_annotation")
+        user.write({"group_ids": [(4, group.id)]})
+        view_id = self.env.ref("mis_builder.mis_report_instance_result_view_form").id
+        url = (
+            f"/web#id={self.report_instance.id}"
+            f"&model=mis.report.instance"
+            f"&view_type=form"
+            f"&view_id={view_id}"
+        )
+        self.start_tour(url, "mis_report_annotation_tour", login="admin")
